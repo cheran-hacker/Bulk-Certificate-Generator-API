@@ -1,0 +1,237 @@
+import os
+
+def create_file(path, content):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content.strip())
+
+css = """
+:root {
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --secondary: #8b5cf6;
+  
+  --bg-app: #f4f5f7;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f9fafb;
+  
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border: #e2e8f0;
+  
+  --success: #10b981;
+  --success-bg: #d1fae5;
+  --success-text: #065f46;
+  
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+  --warning-text: #92400e;
+  
+  --danger: #ef4444;
+  --danger-bg: #fee2e2;
+  --danger-text: #991b1b;
+  
+  --info: #3b82f6;
+  --info-bg: #dbeafe;
+  --info-text: #1e40af;
+  
+  --sidebar-w: 260px;
+  --navbar-h: 70px;
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+[data-theme='dark'] {
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  
+  --bg-app: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-surface-hover: #334155;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border: #334155;
+  
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --success-text: #34d399;
+  
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --warning-text: #fbbf24;
+  
+  --danger-bg: rgba(239, 68, 68, 0.15);
+  --danger-text: #f87171;
+  
+  --info-bg: rgba(59, 130, 246, 0.15);
+  --info-text: #60a5fa;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 { color: var(--text-main); font-weight: 600; letter-spacing: -0.025em; }
+.text-muted-custom { color: var(--text-muted) !important; }
+
+/* Surfaces & Cards */
+.surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+.surface-hover:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Buttons */
+.btn-primary-custom {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.btn-primary-custom:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+.btn-primary-custom:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-secondary-custom {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+}
+.btn-secondary-custom:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+}
+
+/* Badges */
+.badge-custom {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.badge-success { background-color: var(--success-bg); color: var(--success-text); }
+.badge-warning { background-color: var(--warning-bg); color: var(--warning-text); }
+.badge-danger { background-color: var(--danger-bg); color: var(--danger-text); }
+.badge-info { background-color: var(--info-bg); color: var(--info-text); }
+
+/* Tables */
+.table-container {
+  overflow-x: auto;
+}
+.table-custom {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  color: var(--text-main);
+}
+.table-custom th {
+  text-align: left;
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  background-color: var(--bg-surface);
+}
+.table-custom td {
+  padding: 16px;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--border);
+}
+.table-custom tbody tr { transition: background-color 0.2s; }
+.table-custom tbody tr:hover { background-color: var(--bg-surface-hover); }
+
+/* Forms */
+.form-label-custom {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--text-main);
+}
+.form-control-custom {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-size: 0.875rem;
+  transition: all 0.2s;
+}
+.form-control-custom:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+  background-color: var(--bg-surface);
+}
+.form-control-custom::placeholder { color: var(--text-muted); }
+
+/* Animations */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.animate-pulse-subtle { animation: pulse-subtle 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+"""
+
+api_jobs = """
+import { apiClient } from './client';
+
+export const jobsApi = {
+  getJobs: async (skip = 0, limit = 50) => {
+    const response = await apiClient.get(`/api/v1/jobs?skip=${skip}&limit=${limit}`);
+    return response.data;
+  },
+  createJob: async (data) => {
+    const response = await apiClient.post('/api/v1/jobs', data);
+    return response.data;
+  },
+  getJob: async (jobId) => {
+    const response = await apiClient.get(`/api/v1/jobs/${jobId}`);
+    return response.data;
+  },
+  getJobCertificates: async (jobId, skip = 0, limit = 100) => {
+    const response = await apiClient.get(`/api/v1/jobs/${jobId}/certificates?skip=${skip}&limit=${limit}`);
+    return response.data;
+  },
+};
+"""
+
+create_file("frontend/src/styles/global.css", css)
+create_file("frontend/src/api/jobs.js", api_jobs)
+print("upgraded 1")
